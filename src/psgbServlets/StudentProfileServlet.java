@@ -35,13 +35,17 @@ public class StudentProfileServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	
-		 //ArrayList<Object[]> studentaverages = new ArrayList<Object[]>();
-		//List<Object[]> rpt = gbUtil.StrongheimAveragesStudent(sid);
-		// studentaverages.addAll(rpt);
-		 //session.setAttribute("studentaverage", studentaverages);
+		HttpSession session = request.getSession();
+		Psstudent stud=(Psstudent) session.getAttribute("currstudent");
+		int stid=(int) stud.getStudentid();
+		
+		ArrayList<Object[]> studentaverages = new ArrayList<Object[]>();
+		List<Object[]> rpt= gbUtil.StrongheimAveragesStudent(stid);
+		studentaverages.addAll(rpt);
+		
+		session.setAttribute("studentaverages", studentaverages);
 		String nextURL="/studentprofile.jsp";
-		 response.sendRedirect(request.getContextPath() + nextURL);
+		response.sendRedirect(request.getContextPath() + nextURL);
 	}
 
 	/**

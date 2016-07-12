@@ -171,7 +171,7 @@ public class gbUtil {
 		 EntityManager em = DBUtil.getEmFactory().createEntityManager();
 		 String qString = "select MIN(b.score),MAX(b.score), " + 
 		 "AVG(b.score) as score,b.assignmenttype " + 
-		 "from Psassignment b where studentid= :studentid group by b.assignmenttype";
+		 "from Psassignment b where b.psstudent.studentid= :studentid group by b.assignmenttype";
 		 
 		 List<Object[]> report = null;
 		 try{

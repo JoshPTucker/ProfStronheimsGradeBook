@@ -9,8 +9,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>GradeBook</title>
 <jsp:include page="bootstrap.jsp"></jsp:include>
+<script language="JavaScript">
+<!--
+function Hello()
+ {
+ alert("Welcome To Your GradeBook!")
+ }//-->
+</script>
 </head>
-<body>
+<body onload="Hello()">
 	<div align="left">
 		<form action="GradebookServlet" method="post">
 			<input type="submit" id="Submit" name="submit" Value="gradebook"></input>

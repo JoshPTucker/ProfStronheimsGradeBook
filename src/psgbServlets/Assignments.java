@@ -40,13 +40,17 @@ public class Assignments extends HttpServlet {
 		List<Object[]> rpt= gbUtil.StrongheimAverages();
 		 averages.addAll(rpt);
 		 //averages.addAll(gbUtil.StrongheimAverages());
-//		 for (Object[] r: averages){
-//		 String min =r[0].toString();
-//		 String max =r[1].toString();
-//		 String average=r[2].toString();
-//		 String type=r[3].toString();
-//		 }
-		 session.setAttribute("overallaverage", averages);
+		 for (Object[] r: averages){
+		 String min =r[0].toString();
+		 String max =r[1].toString();
+		 String average=r[2].toString();
+		 String type=r[3].toString();
+		  System.out.println(min+" "+" "+ max+" "+ average + type);
+		
+		 }
+
+			 
+		 session.setAttribute("averages", averages);
 		 doPost(request, response);
 		 
 	}

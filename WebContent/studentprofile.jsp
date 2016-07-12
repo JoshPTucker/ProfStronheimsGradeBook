@@ -45,7 +45,7 @@
 	</div>
 	<div>
 		<form action="StudentProfileServlet" method="post">
-			<input type="submit" name="submit" value="submit" id="averages"></input>
+			<input type="submit" name="submit" value="workdone" id="submit"></input>
 		</form>
 	</div>
 	<div>
@@ -60,7 +60,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="studentaverage" items="${studentaverages }">
+				<c:forEach var="studentaverages" items="${sessionScope.studentaverages }">
 					<tr>
 						<td><c:out value="${studentaverages[0] }" /></td>
 						<td><c:out value="${studentaverages[1] }" /></td>
