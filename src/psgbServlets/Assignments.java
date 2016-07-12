@@ -13,19 +13,18 @@ import javax.servlet.http.HttpSession;
 
 import customTools.gbUtil;
 import model.Psassignment;
-import model.Psstudent;
 
 /**
- * Servlet implementation class StudentProfileServlet
+ * Servlet implementation class Assignments
  */
-@WebServlet("/StudentProfileServlet")
-public class StudentProfileServlet extends HttpServlet {
+@WebServlet("/Assignments")
+public class Assignments extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StudentProfileServlet() {
+    public Assignments() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,13 +34,21 @@ public class StudentProfileServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	
-		 //ArrayList<Object[]> studentaverages = new ArrayList<Object[]>();
-		//List<Object[]> rpt = gbUtil.StrongheimAveragesStudent(sid);
-		// studentaverages.addAll(rpt);
-		 //session.setAttribute("studentaverage", studentaverages);
-		String nextURL="/studentprofile.jsp";
-		 response.sendRedirect(request.getContextPath() + nextURL);
+		HttpSession session = request.getSession();
+		
+		ArrayList<Object[]> averages = new ArrayList<Object[]>();
+		List<Object[]> rpt= gbUtil.StrongheimAverages();
+		 averages.addAll(rpt);
+		 //averages.addAll(gbUtil.StrongheimAverages());
+//		 for (Object[] r: averages){
+//		 String min =r[0].toString();
+//		 String max =r[1].toString();
+//		 String average=r[2].toString();
+//		 String type=r[3].toString();
+//		 }
+		 session.setAttribute("overallaverage", averages);
+		 doPost(request, response);
+		 
 	}
 
 	/**
@@ -49,17 +56,12 @@ public class StudentProfileServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-		Psstudent stu=(Psstudent) session.getAttribute("currstudent");
-		int sid=(int) stu.getStudentid();
-		
-		ArrayList<Psassignment> assignments = new ArrayList<Psassignment>();
-		List <Psassignment> assign= gbUtil.assignmentsOfStudent(sid);
-		assignments.addAll(assign);
-		session.setAttribute("assignments", assignments);
-		 
-		String nextURL="/studentprofile.jsp";
+	HttpSession session = request.getSession();
+	ArrayList<Psassignment> allassignments = new ArrayList<Psassignment>();
+	List <Psassignment> assign= gbUtil.allAssignments();
+	allassignments.addAll(assign);
+	session.setAttribute("allassignments", allassignments);
+	 String nextURL="/assignments.jsp";
 		 response.sendRedirect(request.getContextPath() + nextURL);
 	}
-
 }

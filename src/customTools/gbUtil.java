@@ -32,17 +32,17 @@ public class gbUtil {
 	            }
 	        return assignments;    
 	    }
-    public static List<Psassignment> assignmentOfStudent(long studentid)
+    public static List<Psassignment> assignmentsOfStudent(int studentid)
     {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         List<Psassignment> assignments = null;
-        String qString = "select b from Psassignment b "
-                + "where b.studentid = :studentid";
+        String qString = "select a from Psassignment a "
+                + "where a.psstudent.studentid = :studentid";
         
         try{
             TypedQuery<Psassignment> query = em.createQuery(qString,Psassignment.class);
             query.setParameter("studentid", studentid);
-            assignments = query.getResultList();
+              assignments = query.getResultList();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -148,4 +148,42 @@ public class gbUtil {
 	            }
 	        return student;    
 	}
+	
+	public static List<Object[]> StrongheimAverages(){
+		 EntityManager em = DBUtil.getEmFactory().createEntityManager();
+		 String qString = "select MIN(b.score),MAX(b.score), " + 
+		 "AVG(b.score) as score,b.assignmenttype " + 
+		 "from Psassignment b group by b.assignmenttype";
+		 
+		 List<Object[]> report = null;
+		 try{
+		TypedQuery<Object[]> query = em.createQuery(qString,Object[].class);	 
+		 report = query.getResultList();
+		}catch (Exception e){
+		 e.printStackTrace();
+		 }
+		 finally{
+		 em.close();
+		 }
+		 return report;
+		 } 
+	public static List<Object[]> StrongheimAveragesStudent(int studentid){
+		 EntityManager em = DBUtil.getEmFactory().createEntityManager();
+		 String qString = "select MIN(b.score),MAX(b.score), " + 
+		 "AVG(b.score) as score,b.assignmenttype " + 
+		 "from Psassignment b where studentid= :studentid group by b.assignmenttype";
+		 
+		 List<Object[]> report = null;
+		 try{
+		TypedQuery<Object[]> query = em.createQuery(qString,Object[].class);
+		query.setParameter("studentid", studentid);
+		 report = query.getResultList();
+		}catch (Exception e){
+		 e.printStackTrace();
+		 }
+		 finally{
+		 em.close();
+		 }
+		 return report;
+		 }
 }

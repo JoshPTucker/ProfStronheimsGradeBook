@@ -2,6 +2,7 @@ package psgbServlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,17 +40,10 @@ public class GradebookServlet extends HttpServlet {
 				response.setContentType("text/html");
 				//PrintWriter out = response.getWriter();
 				HttpSession session = request.getSession();
-				Psstudent currstudent=null;
-				String firstname=request.getParameter("firstname");
-				String lastname=request.getParameter("lastname");
-				
-				currstudent=gbUtil.singleStudent(1);
-				session.setAttribute("currstudent", currstudent);
-			//	long studentid =student.getStudentid();
-			//	ArrayList<Psassignment> assignments = new ArrayList<Psassignment>();
-			//	assignments.addAll(gbUtil.assignmentOfStudent(studentid));
-			//	session.setAttribute("assignments", assignments);
-			
+				int studentid=Integer.parseInt(request.getParameter("studentid"));
+				Psstudent currstudent=gbUtil.singleStudent(studentid);
+				session.setAttribute("currstudent", currstudent);		
+		
 				//System.out.println(assignments.toString());
 				String nextURL="/studentprofile.jsp";
 				 response.sendRedirect(request.getContextPath() + nextURL);
